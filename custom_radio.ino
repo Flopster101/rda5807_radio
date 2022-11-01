@@ -28,7 +28,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <radio.h>
-#include <RDA5807M.h>
+#include <RDA5807.h>
 
 // TM1637 stuff
 #define CLK 6
@@ -45,13 +45,14 @@ uint8_t dots = 0b01000000; // Add dots or colons (depends on display module)
 
 /// The default station that will be tuned by this sketch is 103.70 MHz.
 #define DEFAULT_STATION 10370
-#define FIX_BAND     RADIO_BAND_FM   ///< The band that will be tuned by this sketch is FM.
+#define DEFAULT_BAND 00   ///< The band that will be tuned by this sketch is US/Europe.
 
-RDA5807M rx; ///< Create an instance of a RDA5807 chip radio
+RDA5807 rx; ///< Create an instance of a RDA5807 chip radio
 
 int default_digvol = 7;
 char buf [64];
 int current_freq;
+bool mute_status = false;
 
 // Buttons
 #include <DailyStruggleButton.h>
@@ -101,13 +102,15 @@ void setup() {
   pinMode (amp_transistor, OUTPUT);
 
   // Initialize the Radio 
-  rx.init();
+  rx.setup();
   delay(300);
-  rx.debugEnable();
-  rx.setVolume(default_digvol);  
+  //rx.debugEnable();
   rx.setMono(false);
   rx.setMute(false);
-  rx.setBandFrequency(FIX_BAND, DEFAULT_STATION);
+  mute_status=0;
+  rx.setFrequency(DEFAULT_STATION);
+  rx.setBand(DEFAULT_BAND);
+  rx.setVolume(default_digvol);  
   delay(300);
 
   // Show frequency on display when initialization is done.
@@ -159,9 +162,9 @@ void translateIR()                  // takes action based on IR code received
     break;
   case 0xFA057708: // UP button on remote.
   {
-    if (rx.getFrequency() != 10800) {
+    if (rx.getRealFrequency() != 10800) {
       Serial.print("\n\nAdvancing 10 Hz...\n");
-      rx.setFrequency(rx.getFrequency() + 10);
+      rx.setFrequency(rx.getRealFrequency() + 10);
       print_info();
       showFrequency_display();
     }
@@ -172,9 +175,9 @@ void translateIR()                  // takes action based on IR code received
     break;
   case 0xF9067708: // DOWN button on remote.
   {
-    if (rx.getFrequency() != 8700) {
+    if (rx.getRealFrequency() != 8700) {
       Serial.print("\n\nReceding 10 Hz...\n");
-      rx.setFrequency(rx.getFrequency() - 10);
+      rx.setFrequency(rx.getRealFrequency() - 10);
       print_info();
       showFrequency_display();
     }
@@ -188,23 +191,22 @@ void translateIR()                  // takes action based on IR code received
 }
 
 void print_info() {
-  char s[12];
-  rx.formatFrequency(s, sizeof(s));
-  Serial.print("Station:"); 
-  Serial.println(s);
+  Serial.print("\nCurrent Channel: ");
+  Serial.print(rx.getRealChannel());
+  delay(500);
+
+  Serial.print("\nReal Frequency.: ");
+  Serial.print(rx.getRealFrequency());
   
-  Serial.print("Radio:"); 
-  rx.debugRadioInfo();
-  
-  Serial.print("Audio:"); 
-  rx.debugAudioInfo();
+  Serial.print("\nRSSI: ");
+  Serial.print(rx.getRssi());
 }
 
 void check_mute() {
-  if (rx.getMute() == true) {
+  if (mute_status == true) {
     Serial.println("Mute: ON");
   }
-  else if (rx.getMute() == false) {
+  else if (mute_status == false) {
     Serial.println("Mute: OFF");
   }
 }
@@ -215,7 +217,7 @@ void printVol() {
 }
 
 void showFrequency_display() {
-  current_freq=rx.getFrequency();
+  current_freq=rx.getRealFrequency();
   display.clear();
   display.showNumber(current_freq, false, 5, 0);
   delay(100);
@@ -238,8 +240,9 @@ void global_VolUp() {
     delay(200);
     showFrequency_display();
   }
-  if (rx.getMute() == true) {
+  if (mute_status == true) {
     rx.setMute(0);
+    mute_status=0;
     check_mute();
   }
     printVol();
@@ -261,21 +264,24 @@ void global_VolDown() {
     delay(200);
     showFrequency_display();
   }
- if (rx.getMute() == true) {
+ if (mute_status == true) {
    rx.setMute(0);
+   mute_status=0;
    check_mute();
  }
     printVol();
 }
 
 void global_MuteRadio() {
-   if (rx.getMute() == false) {
+   if (mute_status == false) {
      rx.setMute(1);
+     mute_status=1;
      display.clear();
      display.showString("MUTE ON");
    }
-   else if (rx.getMute() == true) {
+   else if (mute_status == true) {
      rx.setMute(0);
+     mute_status=0;
      display.clear();
      display.showString("MUTE OFF");
    }
@@ -289,7 +295,7 @@ void global_MuteRadio() {
 
 void global_CHUp() {
   Serial.print("\nSeeking next station...");
-  rx.seekUp(true);
+  rx.seek(0, 1, NULL);
   delay(300);
   print_info();
   showFrequency_display();
@@ -297,7 +303,7 @@ void global_CHUp() {
 
 void global_CHDown() {
   Serial.print("\nSeeking previous station...");
-  rx.seekDown(true);
+  rx.seek(0, 0, NULL);
   delay(300);
   print_info();
   showFrequency_display();
@@ -312,9 +318,9 @@ void CHUPBUTTON(byte btnStatus) {
     break;
     
     case onLongPress:
-    if (rx.getFrequency() != 10800) {
+    if (rx.getRealFrequency() != 10800) {
       Serial.print("\n\nAdvancing 10 Hz...\n");
-      rx.setFrequency(rx.getFrequency() + 10);
+      rx.setFrequency(rx.getRealFrequency() + 10);
       print_info();
       showFrequency_display();
     }
@@ -336,9 +342,9 @@ void CHDOWNBUTTON(byte btnStatus) {
     break;
 
     case onLongPress:
-    if (rx.getFrequency() != 8700) {
+    if (rx.getRealFrequency() != 8700) {
       Serial.print("\n\nReceding 10 Hz...\n");
-      rx.setFrequency(rx.getFrequency() - 10);
+      rx.setFrequency(rx.getRealFrequency() - 10);
       print_info();
       showFrequency_display();
     }
