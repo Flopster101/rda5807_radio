@@ -68,10 +68,6 @@ DailyStruggleButton buttonchdown;
 DailyStruggleButton buttonvolup;
 DailyStruggleButton buttonvoldown;
 
-// Other
-const int amp_transistor = 13;
-int amp_state = 1;
-
 /// Setup a FM only radio configuration
 /// with some debugging on the Serial port
 void setup() {
@@ -97,9 +93,6 @@ void setup() {
   buttonchdown.enableLongPress(longPressTime);
   buttonvolup.enableLongPress(longPressTime_mute);
   buttonvoldown.enableLongPress(longPressTime_mute);
-
-  // Amplificator transistor setup
-  pinMode (amp_transistor, OUTPUT);
 
   // Initialize the Radio 
   rx.setup();
@@ -364,24 +357,6 @@ void VOLUPBUTTON(byte btnStatus) {
     global_VolUp();
     delay(100);
     break;
-
-    case onLongPress:
-    if (digitalRead(amp_transistor) == HIGH) {
-      digitalWrite(amp_transistor, LOW);
-      Serial.print("\nDisabling internal amplifier...");
-      display.showString("AMP OFF");
-      showFrequency_display();
-      delay(200);
-      break;
-    }
-    else if (digitalRead(amp_transistor) == LOW) {
-      digitalWrite(amp_transistor, HIGH);
-      Serial.print("\nEnabling internal amplifier...");
-      display.showString("AMP ON");
-      showFrequency_display();
-      delay(200);
-      break;
-    }
   }
 }
 
