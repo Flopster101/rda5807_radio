@@ -51,7 +51,8 @@ RDA5807 rx; ///< Create an instance of a RDA5807 chip radio
 
 int default_digvol = 7;
 char buf [64];
-int current_freq;
+int freq_buffer_int;
+String freq_buffer;
 bool mute_status = false;
 
 // Buttons
@@ -67,6 +68,10 @@ DailyStruggleButton buttonchup;
 DailyStruggleButton buttonchdown;
 DailyStruggleButton buttonvolup;
 DailyStruggleButton buttonvoldown;
+
+// Command queue
+String cmdbuf = ""; // Decoded command received
+int cmdbuf_int; // Store command converted to integer
 
 /// Setup a FM only radio configuration
 /// with some debugging on the Serial port
@@ -179,6 +184,88 @@ void translateIR()                  // takes action based on IR code received
       print_info();
       showFrequency_display();
     }
+    break;
+  }
+  case 0xEE117708: // 1
+  {
+    cmdbuf = cmdbuf + "1";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xED127708: // 2
+  {
+    cmdbuf = cmdbuf + "2";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xEC137708: // 3
+  {
+    cmdbuf = cmdbuf + "3";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xEB147708: // 4
+  {
+    cmdbuf = cmdbuf + "4";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xEA157708: // 5
+  {
+    cmdbuf = cmdbuf + "5";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xE9167708: // 6
+  {
+    cmdbuf = cmdbuf + "6";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xE8177708: // 7
+  {
+    cmdbuf = cmdbuf + "7";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xE7187708: // 8
+  {
+    cmdbuf = cmdbuf + "8";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xE6197708: // 9
+  {
+    cmdbuf = cmdbuf + "9";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xEF107708: // 0
+  {
+    cmdbuf = cmdbuf + "0";
+    delay(200);
+    showFrequency_counter();
+    break;
+  }
+  case 0xFB047708: // OK
+  {
+    cmdbuf = cmdbuf + "0";
+    Serial.println(cmdbuf);
+    cmdbuf_int = cmdbuf.toInt();
+    Serial.println(cmdbuf_int);
+    rx.setFrequency(cmdbuf_int);
+    showFrequency_display();
+    delay(200);
+    cmdbuf = "";
   }
  }
 }
@@ -210,10 +297,29 @@ void printVol() {
 }
 
 void showFrequency_display() {
-  current_freq=rx.getRealFrequency();
+  freq_buffer = String(rx.getRealFrequency());
+  int lastIndex = freq_buffer.length() - 1;
+  freq_buffer.remove(lastIndex);
+  Serial.println(freq_buffer);
+  freq_buffer_int = freq_buffer.toInt();
   display.clear();
-  display.showNumber(current_freq, false, 5, 0);
+  display.showNumber(freq_buffer_int, false, 4, 0);
   delay(100);
+}
+
+void showFrequency_counter() {
+  cmdbuf_int = cmdbuf.toInt();
+  if (cmdbuf.length() > 4) {
+    display.showString("Err");
+    delay(500);
+    showFrequency_display();
+    cmdbuf = "";
+  }
+  else {
+    display.clear();
+    display.showNumber(cmdbuf_int, false, 4, 0);
+    delay(100);
+  }
 }
 
 // Shared functions for buttons and IR Remote
