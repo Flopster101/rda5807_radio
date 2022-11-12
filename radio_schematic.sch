@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -4344,6 +4344,76 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <sheets>
 <sheet>
 <plain>
+<text x="98.425" y="109.855" size="1.778" layer="91">RDA5807M</text>
+<text x="23.495" y="108.585" size="1.778" layer="91">3.7-4.2v -&gt; 5v</text>
+<text x="-42.545" y="114.935" size="1.778" layer="91">TP4056 Charger</text>
+<text x="-40.64" y="83.82" size="1.778" layer="91">18650 Cell</text>
+<text x="18.415" y="74.295" size="1.778" layer="91">PAM8403/PAM8406</text>
+<text x="90.17" y="38.1" size="1.778" layer="91">2W 8Ω</text>
+<text x="-12.065" y="200.025" size="1.778" layer="91">TSOP1738</text>
+<wire x1="147.32" y1="63.5" x2="233.68" y2="63.5" width="0.508" layer="97"/>
+<wire x1="233.68" y1="63.5" x2="233.68" y2="170.18" width="0.508" layer="97"/>
+<wire x1="233.68" y1="170.18" x2="149.86" y2="170.18" width="0.508" layer="97"/>
+<wire x1="149.86" y1="170.18" x2="149.86" y2="124.46" width="0.508" layer="97"/>
+<wire x1="149.86" y1="124.46" x2="132.08" y2="124.46" width="0.508" layer="97"/>
+<wire x1="132.08" y1="124.46" x2="132.08" y2="68.58" width="0.508" layer="97"/>
+<wire x1="132.08" y1="68.58" x2="147.32" y2="68.58" width="0.508" layer="97"/>
+<wire x1="147.32" y1="68.58" x2="147.32" y2="63.5" width="0.508" layer="97"/>
+<text x="180.34" y="172.72" size="2.54" layer="97">TM1637 Module</text>
+<wire x1="144.78" y1="38.1" x2="180.34" y2="38.1" width="0.508" layer="97"/>
+<wire x1="180.34" y1="38.1" x2="180.34" y2="60.96" width="0.508" layer="97"/>
+<wire x1="180.34" y1="60.96" x2="144.78" y2="60.96" width="0.508" layer="97"/>
+<wire x1="144.78" y1="60.96" x2="144.78" y2="66.04" width="0.508" layer="97"/>
+<wire x1="144.78" y1="66.04" x2="119.38" y2="66.04" width="0.508" layer="97"/>
+<wire x1="119.38" y1="66.04" x2="119.38" y2="48.26" width="0.508" layer="97"/>
+<wire x1="119.38" y1="48.26" x2="144.78" y2="48.26" width="0.508" layer="97"/>
+<wire x1="144.78" y1="48.26" x2="144.78" y2="38.1" width="0.508" layer="97"/>
+<text x="154.94" y="33.02" size="2.54" layer="97">Antenna</text>
+<wire x1="35.56" y1="93.98" x2="35.56" y2="81.28" width="0.508" layer="97"/>
+<wire x1="35.56" y1="81.28" x2="-7.62" y2="81.28" width="0.508" layer="97"/>
+<wire x1="-7.62" y1="81.28" x2="-7.62" y2="66.04" width="0.508" layer="97"/>
+<wire x1="-7.62" y1="66.04" x2="-12.7" y2="66.04" width="0.508" layer="97"/>
+<wire x1="-12.7" y1="66.04" x2="-12.7" y2="40.64" width="0.508" layer="97"/>
+<wire x1="-12.7" y1="40.64" x2="5.08" y2="40.64" width="0.508" layer="97"/>
+<wire x1="5.08" y1="40.64" x2="5.08" y2="25.4" width="0.508" layer="97" curve="5"/>
+<wire x1="5.08" y1="25.4" x2="121.92" y2="25.4" width="0.508" layer="97"/>
+<wire x1="121.92" y1="25.4" x2="121.92" y2="45.72" width="0.508" layer="97"/>
+<wire x1="121.92" y1="45.72" x2="116.84" y2="45.72" width="0.508" layer="97"/>
+<wire x1="116.84" y1="45.72" x2="116.84" y2="76.2" width="0.508" layer="97"/>
+<wire x1="116.84" y1="76.2" x2="55.88" y2="76.2" width="0.508" layer="97"/>
+<wire x1="55.88" y1="76.2" x2="55.88" y2="93.98" width="0.508" layer="97"/>
+<wire x1="55.88" y1="93.98" x2="35.56" y2="93.98" width="0.508" layer="97"/>
+<text x="48.26" y="20.32" size="2.54" layer="97">Audio section</text>
+<wire x1="-10.16" y1="68.58" x2="-45.72" y2="68.58" width="0.508" layer="97"/>
+<wire x1="-45.72" y1="68.58" x2="-45.72" y2="96.52" width="0.508" layer="97"/>
+<wire x1="-45.72" y1="96.52" x2="-50.8" y2="96.52" width="0.508" layer="97"/>
+<wire x1="-50.8" y1="96.52" x2="-50.8" y2="119.38" width="0.508" layer="97"/>
+<wire x1="-50.8" y1="119.38" x2="-10.16" y2="119.38" width="0.508" layer="97"/>
+<wire x1="-10.16" y1="119.38" x2="-10.16" y2="104.14" width="0.508" layer="97"/>
+<wire x1="-10.16" y1="104.14" x2="5.08" y2="104.14" width="0.508" layer="97"/>
+<wire x1="5.08" y1="104.14" x2="5.08" y2="129.54" width="0.508" layer="97"/>
+<wire x1="5.08" y1="129.54" x2="50.8" y2="129.54" width="0.508" layer="97"/>
+<wire x1="50.8" y1="129.54" x2="50.8" y2="149.86" width="0.508" layer="97"/>
+<wire x1="50.8" y1="149.86" x2="66.04" y2="149.86" width="0.508" layer="97"/>
+<wire x1="66.04" y1="149.86" x2="66.04" y2="111.76" width="0.508" layer="97"/>
+<wire x1="66.04" y1="111.76" x2="45.72" y2="111.76" width="0.508" layer="97"/>
+<wire x1="45.72" y1="111.76" x2="45.72" y2="106.68" width="0.508" layer="97"/>
+<wire x1="45.72" y1="106.68" x2="33.02" y2="106.68" width="0.508" layer="97"/>
+<wire x1="33.02" y1="106.68" x2="33.02" y2="83.82" width="0.508" layer="97"/>
+<wire x1="33.02" y1="83.82" x2="-10.16" y2="83.82" width="0.508" layer="97"/>
+<wire x1="-10.16" y1="83.82" x2="-10.16" y2="68.58" width="0.508" layer="97"/>
+<text x="-43.18" y="121.92" size="2.54" layer="97">Power section</text>
+<wire x1="50.8" y1="160.02" x2="-30.48" y2="160.02" width="0.508" layer="97"/>
+<wire x1="-30.48" y1="160.02" x2="-30.48" y2="203.2" width="0.508" layer="97"/>
+<wire x1="-30.48" y1="203.2" x2="-25.4" y2="203.2" width="0.508" layer="97"/>
+<wire x1="-25.4" y1="203.2" x2="-25.4" y2="223.52" width="0.508" layer="97"/>
+<wire x1="-25.4" y1="223.52" x2="2.54" y2="223.52" width="0.508" layer="97"/>
+<wire x1="71.12" y1="218.44" x2="71.12" y2="165.1" width="0.508" layer="97"/>
+<wire x1="71.12" y1="165.1" x2="50.8" y2="165.1" width="0.508" layer="97"/>
+<wire x1="50.8" y1="165.1" x2="50.8" y2="160.02" width="0.508" layer="97"/>
+<text x="-10.16" y="154.94" size="2.54" layer="97">Front buttons + IR Receiver</text>
+<wire x1="2.54" y1="223.52" x2="2.54" y2="218.44" width="0.508" layer="97"/>
+<wire x1="2.54" y1="218.44" x2="71.12" y2="218.44" width="0.508" layer="97"/>
 </plain>
 <instances>
 <instance part="MOD1" gate="G$1" x="30.48" y="53.34" smashed="yes">
@@ -4780,13 +4850,12 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="R2" gate="G$1" pin="1"/>
 <wire x1="-17.78" y1="185.42" x2="-27.94" y2="185.42" width="0.1524" layer="91"/>
 <junction x="-27.94" y="185.42"/>
-<wire x1="-27.94" y1="185.42" x2="-27.94" y2="154.94" width="0.1524" layer="91"/>
+<wire x1="-27.94" y1="185.42" x2="-27.94" y2="162.56" width="0.1524" layer="91"/>
 <pinref part="B1" gate="G$1" pin="VIN"/>
-<wire x1="53.34" y1="154.94" x2="53.34" y2="162.56" width="0.1524" layer="91"/>
 <wire x1="53.34" y1="162.56" x2="91.44" y2="162.56" width="0.1524" layer="91"/>
-<wire x1="-27.94" y1="154.94" x2="53.34" y2="154.94" width="0.1524" layer="91"/>
-<junction x="53.34" y="154.94"/>
-<wire x1="53.34" y1="147.32" x2="53.34" y2="154.94" width="0.1524" layer="91"/>
+<wire x1="-27.94" y1="162.56" x2="53.34" y2="162.56" width="0.1524" layer="91"/>
+<junction x="53.34" y="162.56"/>
+<wire x1="53.34" y1="147.32" x2="53.34" y2="162.56" width="0.1524" layer="91"/>
 <pinref part="L2" gate="G$1" pin="1"/>
 </segment>
 </net>
@@ -4964,9 +5033,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="4DIG_7SEG1" gate="G$1" pin="DP"/>
 <wire x1="152.4" y1="73.66" x2="149.86" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="149.86" y1="73.66" x2="149.86" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="149.86" y1="63.5" x2="218.44" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="218.44" y1="63.5" x2="218.44" y2="147.32" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="73.66" x2="149.86" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="66.04" x2="218.44" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="218.44" y1="66.04" x2="218.44" y2="147.32" width="0.1524" layer="91"/>
 <pinref part="U$3" gate="G$1" pin="SEG8/KS8"/>
 <wire x1="218.44" y1="147.32" x2="193.04" y2="147.32" width="0.1524" layer="91"/>
 </segment>
