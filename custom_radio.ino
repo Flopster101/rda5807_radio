@@ -87,7 +87,9 @@ void setup() {
   // Initialize display
   display.setBrightness(BRIGHT_HIGH);
   display.clear();
-  display.showString("Radio FM");
+  display.showString("FM");
+  delay(500);
+  display.showString("Radio");
 
   // Initialize buttons
   buttonchup.set(buttonCHUp, CHUPBUTTON, INT_PULL_UP);
@@ -385,13 +387,13 @@ void global_MuteRadio() {
      rx.setMute(1);
      mute_status=1;
      display.clear();
-     display.showString("MUTE ON");
+     display.showString("MUTED");
    }
    else if (mute_status == true) {
      rx.setMute(0);
      mute_status=0;
      display.clear();
-     display.showString("MUTE OFF");
+     display.showString("UNMUTED");
    }
 
    Serial.println("Current volume:");
