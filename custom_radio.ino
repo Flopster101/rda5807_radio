@@ -71,7 +71,7 @@ DailyStruggleButton buttonvoldown;
 
 // Command queue
 String cmdbuf = ""; // Decoded command received
-int cmdbuf_int; // Store command converted to integer
+int cmdbuf_int = 0; // Store command converted to integer
 
 /// Setup a FM only radio configuration
 /// with some debugging on the Serial port
@@ -258,6 +258,14 @@ void translateIR()                  // takes action based on IR code received
   }
   case 0xFB047708: // OK
   {
+    if (cmdbuf.length() < 3) {
+    display.showString("Err");
+    delay(500);
+    showFrequency_display();
+    cmdbuf = "";
+    }
+
+    if (cmdbuf.length() >= 3) {
     cmdbuf = cmdbuf + "0";
     Serial.println(cmdbuf);
     cmdbuf_int = cmdbuf.toInt();
@@ -266,6 +274,7 @@ void translateIR()                  // takes action based on IR code received
     showFrequency_display();
     delay(200);
     cmdbuf = "";
+    }
   }
  }
 }
